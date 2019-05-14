@@ -1,0 +1,6 @@
+export const SET_CONFIG = Symbol('SET_CONFIG')
+export const GET_STATE = Symbol('GET_STATE')
+export const SET_ISSUE = Symbol('SET_ISSUE')
+export const SET_ISSUES = Symbol('SET_ISSUES')
+export const SET_CLIENT = Symbol('SET_CLIENT')
+export const SET_REPOS = Symbol('SET_REPOS')
