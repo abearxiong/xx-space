@@ -5,14 +5,19 @@ import { Route,HashRouter, Switch,Redirect } from 'react-router-dom';
 import Post from './components/post';
 import Home from './components/home';
 import Edit from './components/edit';
-
 import {setConfig} from './actions/ReposActions'
 import './App.css';
-const token = '2a4917fe31a289c29616b82047f0e03c8c1976a6' // 私有限制权限的token
+// 私有token上传会自动把token无效；所以加密一下啊 解密
+// import CryptoJS from 'crypto-js'
+// var decrypted = CryptoJS.AES.decrypt(token,key);
+// let token = decrypted.toString(CryptoJS.enc.Utf8);//转化为utf8
+const key = "xx-space"
+const token = 'U2FsdGVkX19B3HPXWKdG/BW8oy5ld+5t4WogKry+ve6B0RWRGtSjQlGr32zwr4nn7zBE9woFkj4mWNj8jZv1dg==' // 私有限制权限的token
 const owner = 'abearxiong'  // 仓库拥有者
 const name = 'abearxiong.github.io' // 仓库名字
 const labels = 'xx-space' //'MDU6TGFiZWwxMzU2ODYzMTMz' // label的id
 const config = {
+  key,
   token,
   owner,
   name,

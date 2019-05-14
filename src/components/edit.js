@@ -38,7 +38,7 @@ class Edit extends Component {
     */
     let now = new Date()
     let show_day = ["星期天","星期一","星期二","星期三","星期四","星期五","星期六"]
-    let manyDay = Math.floor((now - 1443365529298)/(24 * 60 * 60 * 1000)) // 往下 取整
+    let manyDay = Math.floor((now - 1443365529298)/(24 * 60 * 60 * 1000)) + 1// 往下 取整
     let day = now.getDay()
     let title = `传说之旅${manyDay} ${show_day[day]}`
     //let content = "今天发生了什么愉快的事情呢？"
@@ -66,7 +66,7 @@ class Edit extends Component {
     this.setState({
       msg:"msg修改"
     })
-    console.log(this)
+    //console.log(this)
   }
   getType = chars => {
     switch (chars) {
@@ -121,10 +121,10 @@ class Edit extends Component {
     let value = values.join("\\r\\n")
     let title = this.state.title
     let data = {content:value,title}
-    console.log(value)
+    //console.log(value)
+    setIssueAdd(data)
     localStorage.removeItem('title')
     localStorage.removeItem('content')
-    setIssueAdd(data)
   }
   render() {
     let CardIssue

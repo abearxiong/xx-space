@@ -9,7 +9,7 @@ class Home extends Component {
       message: "test",
       spaces: []
     };
-    console.log(props)
+    //console.log(props)
   }
   componentDidMount () {
     let {setIssues} = this.props
@@ -24,13 +24,13 @@ class Home extends Component {
     let data = {}
     data.type = "previous"
     data.after = value
-    console.log("设置上一页",data)
+    //console.log("设置上一页",data)
     setIssues(data)
   }
   nextClick(e,value){
     let {setIssues} = this.props
     let after = value
-    console.log("设置下一页",after)
+    //console.log("设置下一页",after)
     setIssues({after})
   }
   render() {

@@ -20,7 +20,7 @@ class Post extends Component {
     this.setState({
       msg:"msg修改"
     })
-    console.log(this)
+    //console.log(this)
   };
   render() {
     let CardIssue
