@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import store from './store';
 import { Route,HashRouter, Switch,Redirect } from 'react-router-dom';
-import Post from './components/post';
-import Home from './components/home';
-import Edit from './components/edit';
+import Post from './views/post';
+import Home from './views/home';
+import Edit from './views/edit';
+import Head from './components/head'
 import {setConfig} from './actions/ReposActions'
 import './App.css';
 // 私有token上传会自动把token无效；所以加密一下啊 解密
@@ -37,6 +38,7 @@ class App extends Component {
     return (      
            <Provider store = {store}>
            <HashRouter>
+           <Head/>
               <Switch>
                   <Route path="/" exact component={Home}/>
                   <Route path="/post/:number" component={Post}/>

@@ -105,7 +105,7 @@ class Repository {
       alert('需要仓库的ID')
       return
     }
-    console.log(title,labelIds,repositoryId,content)
+    //console.log(title,labelIds,repositoryId,content)
     return gql `
     mutation CreateIssuePayload
     {

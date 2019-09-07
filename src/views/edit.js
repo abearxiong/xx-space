@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { setIssue,setIssueAdd } from '../actions';
 import { Editor } from 'slate-react';
 import { Value } from 'slate';
-import MarkdownShortcuts from './slate/markdown-shortcuts'
+import MarkdownShortcuts from '../components/slate/markdown-shortcuts'
 let initialJson = {
   document: {
     nodes: [
@@ -120,7 +120,7 @@ class Edit extends Component {
     let values = nodes.nodes.map((item,index)=>item.nodes[0].text)
     let value = values.join("\\r\\n")
     let title = this.state.title
-    let data = {content:value,title}
+    let data = {content:value,title:title}
     //console.log(value)
     setIssueAdd(data)
     localStorage.removeItem('title')

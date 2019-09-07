@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import {Container,Card,Button, CardColumns, ButtonGroup} from 'react-bootstrap';
 import { setIssues } from '../actions';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { ReactComponent as Logo } from '../logo.svg';
+// fetch('./setting.json').then(res=>{
+//   console.log("setting,",res.text())
+// })
+
 class Home extends Component {
   constructor(props){
     super(props);
@@ -61,12 +66,12 @@ class Home extends Component {
     }else{
       CardIssues = (
         <Card>
-          请骚等
+          请稍等
         </Card>
       )
     }
     return (  
-        <Container className="xx-space">
+        <Container fluid className="xx-space">
           <Card>
             <Card.Body>
 
