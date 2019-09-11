@@ -3,6 +3,7 @@ import {Container,Card,Button, CardColumns, ButtonGroup} from 'react-bootstrap';
 import { setIssues } from '../actions';
 import { connect } from 'react-redux';
 import { ReactComponent as Logo } from '../logo.svg';
+import { Link } from 'react-router-dom';
 // fetch('./setting.json').then(res=>{
 //   console.log("setting,",res.text())
 // })
@@ -11,6 +12,7 @@ class Home extends Component {
   constructor(props){
     super(props);
     this.state = {
+      introduce: "这里是显示内容的主页",
       message: "test",
       spaces: []
     };
@@ -18,8 +20,21 @@ class Home extends Component {
   }
   componentDidMount () {
     let {setIssues} = this.props
-    console.log("Home 初始化")
+    // console.log("Home 初始化")
     setIssues()
+    const addNewStyle = {
+      position: "fixed",
+      bottom: '40px',
+      width: '100px',
+      height: '100px',
+      right: '40px',
+      'font-size': '100px',
+      border: '5px solid',
+      'border-radius': "50%",
+      'line-height': '65px',
+      'text-align': 'center'
+    }
+    this.setState({addNewStyle})
   }
   handleClick(){
     alert("home")
@@ -37,6 +52,9 @@ class Home extends Component {
     let after = value
     //console.log("设置下一页",after)
     setIssues({after})
+  }
+  addNewSpace(e){
+    // location.href = 'edit/new';
   }
   render() {
     let CardIssues
@@ -71,7 +89,7 @@ class Home extends Component {
       )
     }
     return (  
-        <Container fluid className="xx-space">
+        <Container className="xx-space">
           <Card>
             <Card.Body>
 
@@ -85,6 +103,7 @@ class Home extends Component {
               {CardTotalCount}
             </Card.Footer>
           </Card>
+          <Link style={this.state.addNewStyle} to={{ pathname: '/edit/new'}} >+</Link>
         </Container>
     );
   }
