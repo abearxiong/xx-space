@@ -1,72 +1,18 @@
-<script>
-window.location.href="./build"
-</script>
+# 一个使用Github搭建的个人站点的单页应用
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> 主页面的博客，是通过Jkeyll和Ruby的，使用Github的静态博客搭建，副应用，比如这些比较有用的思考的一些应用网站，不直接集成在Github的静态博客当中，通过其他仓库的集成方式，使得可以通过Github来搭建完整的一个博客应用的体系。
 
-## Available Scripts
+## 介绍
 
-In the project directory, you can run:
+Github的静态博客可以搭建静态页面，issues可以搭建评论系统，其他的仓库集成静态页面，可以实现一些单页面的功能。
 
-### `npm start`
+本应用的功能特点是： 通过issues来写入某一天随意想到的一些点子，可以对之前想到的点子进行查看和显示。
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 0.0.1版本
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+- 单纯的可以把内容保存到issues的应用当中。
+- 可以查看，和增加
+- 使用React + slatejs
 
-### `npm test`
+后期发现，google chrome 可以实现一个功能，把网页当作一个app进行应用查看，就类似于软件来了，去掉了我之前的思考，把应用的显示通过Electronjs来显示在桌面客户端上面。
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

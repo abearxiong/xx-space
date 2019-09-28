@@ -4,6 +4,8 @@ import { setIssues } from '../actions';
 import { connect } from 'react-redux';
 import { ReactComponent as Logo } from '../logo.svg';
 import { Link } from 'react-router-dom';
+import Head from '../components/head/head'
+
 // fetch('./setting.json').then(res=>{
 //   console.log("setting,",res.text())
 // })
@@ -28,11 +30,11 @@ class Home extends Component {
       width: '100px',
       height: '100px',
       right: '40px',
-      'font-size': '100px',
+      fontSize: '100px',
       border: '5px solid',
-      'border-radius': "50%",
-      'line-height': '65px',
-      'text-align': 'center'
+      borderRadius: "50%",
+      lineHeight: '65px',
+      textAlign: 'center'
     }
     this.setState({addNewStyle})
   }
@@ -90,6 +92,7 @@ class Home extends Component {
     }
     return (  
         <Container className="xx-space">
+          <Head {...this.props}/>
           <Card>
             <Card.Body>
 

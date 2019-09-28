@@ -5,6 +5,8 @@ import { setIssue,setIssueAdd } from '../actions';
 import { Editor } from 'slate-react';
 import { Value } from 'slate';
 import MarkdownShortcuts from '../components/slate/markdown-shortcuts'
+import Head from '../components/head/head'
+
 let initialJson = {
   document: {
     nodes: [
@@ -137,6 +139,7 @@ class Edit extends Component {
     }
     return (  
         <Container className="xx-space-Edit">
+        <Head {...this.props}/>
           <Card>
             <Card className="Edit-content">
               <Card.Header><Form.Control type="text" onChange = {(e)=>this.onChangeTitle(e)} placeholder="题目" defaultValue={this.state.title} /></Card.Header>
