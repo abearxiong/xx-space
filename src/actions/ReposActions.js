@@ -34,13 +34,13 @@ export const setIssue = (data = {}) => {
 // 设置post内容之增加post
 export const setIssueAdd = ( data = {})=> {
     return (dispatch)=>{
-        console.log("data",data)
+        console.log("增加的数据data",data)
         let content = data.content
         let title  = data.title
         client.mutate({
             mutation : repos.setIssueAdd(content,title)
         }).then(res=>{
-            console.log(res)
+            console.log("增加后的数据", res)
 
         })
         // client.query({query:repos.getIssue(number,first,after)}).then(res=>{

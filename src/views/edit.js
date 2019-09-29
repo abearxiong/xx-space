@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import {Container,Card,Button,Form, CardColumns, ButtonGroup} from 'react-bootstrap';
+import {Container,Card,Button,Form, ButtonGroup} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { setIssue,setIssueAdd } from '../actions';
 import { Editor } from 'slate-react';
 import { Value } from 'slate';
-import MarkdownShortcuts from '../components/slate/markdown-shortcuts'
 import Head from '../components/head/head'
+// import './edit.scss'
 
 let initialJson = {
   document: {
@@ -44,7 +44,16 @@ class Edit extends Component {
     let day = now.getDay()
     let title = `传说之旅${manyDay} ${show_day[day]}`
     //let content = "今天发生了什么愉快的事情呢？"
-    this.state = {msg:"msg hhh",number,title,value:initialValue}
+    this.state = {
+      msg:"msg hhh",
+      number,title,
+      value:initialValue,
+      createAt: new Date().toLocaleString(),
+      titleStyle:{
+        color: '#cccccc',
+        fontSize: 10
+      }
+    }
   }  
   componentDidMount () {
     let setIssue = this.props.setIssue
@@ -63,12 +72,6 @@ class Edit extends Component {
     }
     console.log("Edit初始化",number)
     
-  }
-  handleClick(){
-    this.setState({
-      msg:"msg修改"
-    })
-    //console.log(this)
   }
   getType = chars => {
     switch (chars) {
@@ -127,23 +130,21 @@ class Edit extends Component {
     setIssueAdd(data)
     localStorage.removeItem('title')
     localStorage.removeItem('content')
+    this.props.history.push("/")
   }
   render() {
-    let CardIssue
     let ButtonSubmit = <Button onClick = {(e)=>this.onClickAddNewPost(e)}>增加</Button>
     if(this.props.state.setIssue.issue){
       let issue = this.props.state.setIssue.issue
       // 赋值给state
-    }else{
-      CardIssue = (<Card>等等</Card>)
     }
     return (  
         <Container className="xx-space-Edit">
         <Head {...this.props}/>
           <Card>
             <Card className="Edit-content">
-              <Card.Header><Form.Control type="text" onChange = {(e)=>this.onChangeTitle(e)} placeholder="题目" defaultValue={this.state.title} /></Card.Header>
-              <Card.Title>{this.state.createdAt||new Date().toLocaleString()}</Card.Title>
+              <Card.Header><Form.Control type="text" onChange = {(e)=>this.onChangeTitle(e)} placeholder="标题" defaultValue={this.state.title} /></Card.Header>
+              <Card.Title style={this.state.titleStyle}>{this.state.createAt}</Card.Title>
               <Card.Body>
                 <Editor 
                   placeholder = "hhh"

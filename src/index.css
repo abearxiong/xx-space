@@ -15,3 +15,11 @@ code {
 a:hover{
   text-decoration: none;
 }
+
+.card-title{
+  font-size: 10px;
+  color: #cccccc;
+  margin-left: 20px;
+  margin-bottom: -10px;
+
+}
