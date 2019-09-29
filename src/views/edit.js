@@ -131,11 +131,12 @@ class Edit extends Component {
     localStorage.removeItem('title')
     localStorage.removeItem('content')
     this.props.history.push("/")
+    // windows.location.href="/"
   }
   render() {
     let ButtonSubmit = <Button onClick = {(e)=>this.onClickAddNewPost(e)}>增加</Button>
     if(this.props.state.setIssue.issue){
-      let issue = this.props.state.setIssue.issue
+      // let issue = this.props.state.setIssue.issue
       // 赋值给state
     }
     return (  

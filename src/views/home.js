@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/accessible-emoji */
 import React, { Component } from "react";
 import {
   Container,
@@ -10,7 +11,7 @@ import {
 import { setIssues } from "../actions";
 import { connect } from "react-redux";
 // import { ReactComponent as Logo } from '../logo.svg';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Head from "../components/head/head";
 
 // fetch('./setting.json').then(res=>{
@@ -45,6 +46,10 @@ class Home extends Component {
       textAlign: "center"
     };
     this.setState({ addNewStyle });
+  }
+  componentWillReceiveProps(){
+    //TODO: SOLVE POSTINFOMATION 
+    console.log("reveiver props, there is to think how to solve question about post infomation and home isn't update.")
   }
   handleClick() {
     alert("home");
