@@ -28,15 +28,19 @@ const config = {
 class App extends Component {
   constructor(props){
     super(props);
-    //store.dispatch({type: Types.SET_CONFIG,data: config})
+    //store.dispatch({type: Types.SET_CONFIG,data: config}) // store分发举例，其他库，自动配置
     setConfig(config);
+    this.state = {
+      description: "设置关于起始显示的地方"
+    }
   };
   componentDidMount () {
-    //console.log("App初始化完成",store)
+    console.log("App初始化完成",store)
+    
   }
   render() {
     return (      
-           <Provider store = {store}>
+      <Provider store = {store}>
            <HashRouter>
               <Switch>
                   <Route path="/" exact component={Home}/>

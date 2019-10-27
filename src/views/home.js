@@ -13,7 +13,8 @@ import { connect } from "react-redux";
 // import { ReactComponent as Logo } from '../logo.svg';
 // import { Link } from "react-router-dom";
 import Head from "../components/head/head";
-
+// import GET_ISSUSE from "../graphql/repository/issues/GET_ISSUSE"
+import { ApolloProvider, useQuery } from '@apollo/react-hooks';
 // fetch('./setting.json').then(res=>{
 //   console.log("setting,",res.text())
 // })
@@ -48,8 +49,8 @@ class Home extends Component {
     this.setState({ addNewStyle });
   }
   componentWillReceiveProps(){
-    //TODO: SOLVE POSTINFOMATION 
-    console.log("reveiver props, there is to think how to solve question about post infomation and home isn't update.")
+    //FIXED: SOLVE POSTINFOMATION 
+    // console.log("reveiver props, there is to think how to solve question about post infomation and home isn't update.")
   }
   handleClick() {
     alert("home");
@@ -76,7 +77,21 @@ class Home extends Component {
     let url = 'https://github.com/abearxiong/abearxiong.github.io/issues/' + index
     window.open(url)
   }
+  toEditIssues = (e, index) => {
+    // e.preventdefault().
+    e.stopPropagation()
+    console.log("editIssues", this)
+    // TODO: 判断是否缓存有内容
+    this.props.history.push("/edit/"+index)
+  }
+  
   render() {
+    // const { loading, error, data2 } = useQuery(GET_ISSUSE, {
+    //   variables: { owner:"abearxiong.github.io", name: "abearxiong", first: 10 },
+    // });
+    // if (loading) return null;
+    // if (error) return `Error! ${error}`;
+    // console.log("data2", data2)
     let CardIssues;
     let ButtonNext = "",
       ButtonPre = "",
@@ -88,15 +103,24 @@ class Home extends Component {
       let totalCount = issues.totalCount;
       CardIssues = edges.map((list, index) => {
         let date = new Date(list.node.createdAt);
+        let labelEdges = list.node.labels.edges
+        let labels = labelEdges.map((labelList,index) => {
+          return (<Badge pill  style={{backgroundColor:"#"+labelList.node.color }} id={labelList.node.id} key={labelList.node.id} title={labelList.node.description}>
+             {labelList.node.name}
+          </Badge>)
+        })
+        console.log("labels", labels)
         return (
           <Card key={ index } className="space-item">
-            <Card.Header onClick={e=>this.toGithubComment(list.node.number)}>{list.node.title}</Card.Header>
+            <Card.Header onClick={e=>this.toGithubComment(list.node.number)}>{list.node.title}<Badge variant="light" onClick={e=>this.toEditIssues(e, list.node.number)}>编辑</Badge></Card.Header>
             <Card.Title>{date.toLocaleString()}</Card.Title>
             <Card.Body
-              dangerouslySetInnerHTML={{ __html: list.node.bodyHTML }}
-            ></Card.Body>
+            >
+              {labels}
+              <Card border="light"  dangerouslySetInnerHTML={{ __html: list.node.bodyHTML }}></Card>
+            </Card.Body>
             <Card.Footer>
-              <Badge variant="success" onClick={e=>this.toGithubComment(list.node.number)}>
+              <Badge variant="light" onClick={e=>this.toGithubComment(list.node.number)}>
                     <g-emoji
                       alias="heart"
                       fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png"

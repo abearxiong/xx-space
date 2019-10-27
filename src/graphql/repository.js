@@ -9,6 +9,7 @@ class Repository {
     this.graphql = ""
     this.currentPage = "first:10"
   }
+  // 获取所有的ISSUES
   getIssues(type, first, after, labels) {
     if(type === "next"){
       first = first? `first:${first}`:""
@@ -17,12 +18,10 @@ class Repository {
       first = first? `last:${first}`:""
       after =after?`,before:"${after}"`:""
     }
-    labels = labels?`,labels:"${labels}"`: this.labels
-    console.log("gql set",labels)
     return gql `
         {
           repository(owner: "${this.owner}", name: "${this.name}") {
-              issues(${first} ${after} ${labels},orderBy:{field:CREATED_AT,direction:DESC}){
+              issues(${first} ${after},orderBy:{field:CREATED_AT,direction:DESC}){
                 totalCount
                 pageInfo {
                   endCursor
@@ -44,6 +43,16 @@ class Repository {
                     comments {
                      totalCount
                     }
+                    labels(first:10){
+                      edges{
+                        node{
+                          id
+                          name
+                          color
+                          description
+                        }
+                      }
+                    }
                     reactions(content:HEART){
                       totalCount
                     }
@@ -54,6 +63,7 @@ class Repository {
         }
         `
   }
+  // 获取某一个issue，进行查看具体的详细内容。
   getIssue(number, first, after) {
     number = `number:${number}`
     first = first? `first:${first}`:""
@@ -72,6 +82,16 @@ class Repository {
                   login
                 }
                 createdAt
+                labels(first:10){
+                  edges{
+                    node{
+                      id
+                      name
+                      color
+                      description
+                    }
+                  }
+                }
                 comments( ${first} ${after}) {
                   totalCount
                   edges{

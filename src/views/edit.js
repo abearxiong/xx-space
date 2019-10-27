@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import {Container,Card,Button,Form, ButtonGroup} from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { setIssue,setIssueAdd } from '../actions';
+import { setIssue,setIssueAdd,setIssueUpdate } from '../actions';
 import { Editor } from 'slate-react';
-import { Value } from 'slate';
+// import { Value } from 'slate';
 import Head from '../components/head/head'
 // import './edit.scss'
+import Plain from 'slate-plain-serializer'
 
 let initialJson = {
   document: {
@@ -27,7 +28,7 @@ let initialJson = {
     ],
   },
 }
-const initialValue = Value.fromJSON(initialJson)
+// const initialValue = Value.fromJSON(initialJson)
 class Edit extends Component {
   constructor(props){
     super(props)
@@ -42,12 +43,13 @@ class Edit extends Component {
     let show_day = ["星期天","星期一","星期二","星期三","星期四","星期五","星期六"]
     let manyDay = Math.floor((now - 1443365529298)/(24 * 60 * 60 * 1000)) + 1// 往下 取整
     let day = now.getDay()
-    let title = `传说之旅${manyDay} ${show_day[day]}`
+    let title = `奇幻旅程${manyDay} ${show_day[day]}`
     //let content = "今天发生了什么愉快的事情呢？"
     this.state = {
       msg:"msg hhh",
       number,title,
-      value:initialValue,
+      // value:initialValue,
+      value: Plain.deserialize("真是开心啊"),
       createAt: new Date().toLocaleString(),
       titleStyle:{
         color: '#cccccc',
@@ -59,6 +61,7 @@ class Edit extends Component {
     let setIssue = this.props.setIssue
     let number = this.state.number
     if(number === "new"){
+      // 如果新建文章的情况下，如果本地已经有了的话，直接设置
       let title = localStorage.getItem('title')
       let content = localStorage.getItem('conent')
       if(title){
@@ -118,26 +121,62 @@ class Edit extends Component {
   }
   onClickAddNewPost = ()=>{
     const { setIssueAdd } = this.props
-    // 1. 获取actions 2. 执行提交内容
-    const content = JSON.stringify(this.state.value.document)
-    const nodes = JSON.parse(content)
-    // console.log(content,nodes)
-    let values = nodes.nodes.map((item,index)=>item.nodes[0].text)
-    let value = values.join("\\r\\n")
+    // COMPLETED: 1. 获取actions 2. 执行提交内容
+    // const content = JSON.stringify(this.state.value.document)
+    let value = Plain.serialize(this.state.value)
     let title = this.state.title
     let data = {content:value,title:title}
     //console.log(value)
     setIssueAdd(data)
     localStorage.removeItem('title')
     localStorage.removeItem('content')
+    // this.props.history.push("/")
+    // window.location.href="/"
+  }
+  onClickEditOldPost = () => {
+    const  { setIssueUpdate } = this.props
+    let value = Plain.serialize(this.state.value)
+    let title = this.state.title
+    let data = {content:value,title:title}
+    setIssueUpdate(data)
+    localStorage.removeItem('title')
+    localStorage.removeItem('content')
+  }
+  onClickReturn = ()=>{
     this.props.history.push("/")
-    // windows.location.href="/"
   }
   render() {
     let ButtonSubmit = <Button onClick = {(e)=>this.onClickAddNewPost(e)}>增加</Button>
+    let ButtonReturn = <Button variant="dark" onClick = {(e)=>this.onClickReturn(e)}>返回</Button>
+    let CardTitle = <Card.Title style={this.state.titleStyle}>{this.state.createAt}</Card.Title>
+    let EditorContent = (
+      <Editor 
+      placeholder = "hhh"
+      value = {this.state.value}
+      onChange = {this.onValueChange}
+      />
+    )
     if(this.props.state.setIssue.issue){
-      // let issue = this.props.state.setIssue.issue
-      // 赋值给state
+      let issue = this.props.state.setIssue.issue
+      // COMPLETED: 赋值给 EditorContent  
+      console.log("获取编辑的内容", issue)
+      //let Rule =  new Html({
+      //   rules: Array
+      // })
+      // let bodyHtml = Rule.deserialize(issue.bodyHtml) // Html格式化
+      let bodyContent = Plain.deserialize(issue.body) // Plain 格式化
+      EditorContent = (
+        <Editor 
+        placeholder = "更新内容"
+        value = {bodyContent}
+        onChange = {this.onValueChange}
+        />
+      )
+      // TODO: 编辑确定，更新内容
+      ButtonSubmit = <Button onClick = {(e)=>this.onClickEditOldPost(e)}>更新</Button>
+      CardTitle = <Card.Title style={this.state.titleStyle}>{new Date(issue.createdAt).toLocaleString()}</Card.Title>
+
+      // TODO: 获取所有的标签
     }
     return (  
         <Container className="xx-space-Edit">
@@ -145,13 +184,9 @@ class Edit extends Component {
           <Card>
             <Card className="Edit-content">
               <Card.Header><Form.Control type="text" onChange = {(e)=>this.onChangeTitle(e)} placeholder="标题" defaultValue={this.state.title} /></Card.Header>
-              <Card.Title style={this.state.titleStyle}>{this.state.createAt}</Card.Title>
+              {CardTitle}
               <Card.Body>
-                <Editor 
-                  placeholder = "hhh"
-                  value = {this.state.value}
-                  onChange = {this.onValueChange}
-                  />
+                { EditorContent }
                 {/* <Editor
                   placeholder = "打算放预览的地方啦"
                   value = { this.state.value }
@@ -164,6 +199,7 @@ class Edit extends Component {
                 <Card>
                   <ButtonGroup>
                     {ButtonSubmit}
+                    {ButtonReturn}
                   </ButtonGroup>
                 </Card>
               </Card.Footer>
@@ -326,6 +362,10 @@ class Edit extends Component {
 // mapStateToProps：将state映射到组件的props中
 const mapStateToProps = (state) => {
   console.log("state 映射",state)
+  if(state.setIssue.data !== undefined){
+    window.location.href = "/"
+    // console.log("setIssue data", state.setIssue.data)
+  }
   return {
       state
   }
@@ -338,6 +378,9 @@ return {
   },
   setIssueAdd(data){
     dispatch(setIssueAdd(data))
+  },
+  setIssueUpdate(data){
+    dispatch(setIssueUpdate(data))
   }
 }
 }

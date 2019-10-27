@@ -1,0 +1,15 @@
+mutation UpdateIssuePayload{
+  updateIssue(input:{id:"MDU6SXNzdWU1MTI4NDMwMTM=", body:"### 测试修改内容"}){
+    issue{
+      id
+      number
+      title
+      bodyHTML
+      body
+      author{
+        login
+      }
+      createdAt
+    }
+  }
+}

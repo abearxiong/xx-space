@@ -2,17 +2,23 @@
 import defaultState from '../state.js'
 import * as Types from '../../actions/ReposActionsType'
 function setIssue(state = defaultState.config,action){
+    // console.log("setIssue Type:",action.type)
     switch(action.type){
         case Types.SET_ISSUE:
-        state.issue = action.data
-        //console.log("得到",state,"data",action,action.type)
-        //return state
-        return Object.assign({},state) //直接返回state是不会自动的刷新的
+            state.issue = action.data
+            //console.log("得到",state,"data",action,action.type)
+            //return state
+            return Object.assign({},state) //直接返回state是不会自动的刷新的
+        case Types.SET_ISSUE_ADD_STATUS:
+            // 设置更新后的状态
+            // state.setIssueAddConent = action.data
+            return Object.assign({}, action.data)
         default:
-        return state
+            return state
     }
 }
 function setIssues(state = defaultState.config,action){
+    // console.log("setIssues Type:",action.type)
     switch(action.type){
         case Types.SET_ISSUES:
         state.issues = action.data
