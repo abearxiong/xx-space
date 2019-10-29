@@ -1,33 +1,13 @@
 import React, { Component } from 'react';
 import {Container,Card,Button,Form, ButtonGroup} from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { setIssue,setIssueAdd,setIssueUpdate } from '../actions';
+import { setIssueEdit } from '../actions';
 import { Editor } from 'slate-react';
 // import { Value } from 'slate';
 import Head from '../components/head/head'
 // import './edit.scss'
 import Plain from 'slate-plain-serializer'
 
-let initialJson = {
-  document: {
-    nodes: [
-      {
-        object: 'block',
-        type: 'paragraph',
-        nodes: [
-          {
-            object: 'text',
-            leaves: [
-              {
-                text: '真是开心啊',
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-}
 // const initialValue = Value.fromJSON(initialJson)
 class Edit extends Component {
   constructor(props){
@@ -134,11 +114,11 @@ class Edit extends Component {
     // window.location.href="/"
   }
   onClickEditOldPost = () => {
-    const  { setIssueUpdate } = this.props
+    // const  { setIssueUpdate } = this.props
     let value = Plain.serialize(this.state.value)
     let title = this.state.title
     let data = {content:value,title:title}
-    setIssueUpdate(data)
+    // setIssueUpdate(data)
     localStorage.removeItem('title')
     localStorage.removeItem('content')
   }
@@ -374,13 +354,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
 return {
   setIssue(data){
-    dispatch(setIssue(data))
-  },
-  setIssueAdd(data){
-    dispatch(setIssueAdd(data))
-  },
-  setIssueUpdate(data){
-    dispatch(setIssueUpdate(data))
+    dispatch(setIssueEdit(data))
   }
 }
 }

@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import {
-    // Container, 
-    Card, Button,
-    // CardColumns,
-    ButtonGroup, 
-    // Nav
-} from 'react-bootstrap';
+import { Button, Navbar, Nav, NavDropdown, Form, FormControl, Modal } from 'react-bootstrap';
 import './head.scss'
+import IssuesLabels from "../issues/labels/labels"
 class Head extends Component {
     constructor(props) {
         super(props);
@@ -14,9 +9,10 @@ class Head extends Component {
             title: "head",
             desc: "显示关于应用中的头部的信息",
             message: "test",
-            spaces: []
+            spaces: [],
+            showLabels: false
         };
-        console.log("props:", props, window.location.href)
+        // console.log("props:", props, window.location.href)
     }
     componentDidMount() {
 
@@ -30,15 +26,53 @@ class Head extends Component {
         //console.log("添加新的内容")
         this.props.history.push("/edit/new")
     }
+    onShowLabels = () => {
+        this.setState({
+            showLabels: true
+        })
+    }
+    onLabelsClose = () =>{
+        this.setState({
+            showLabels: false
+        })
+    }
     render() {
         return (
-            <Card className="Header">
-                <ButtonGroup>
-                    <Button onClick={e => this.toIndex(e)}>首页</Button>
-                    <Button onClick={e => this.toAddNewSpace(e)}>新增</Button>
-                    <Button>登录</Button>
-                </ButtonGroup>
-            </Card>
+            <Navbar className="Header" bg="light" expand="lg">
+                <Navbar.Brand href="#">GitHub空间</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="mr-auto">
+                        {/* <Nav.Link href="#">Home</Nav.Link> */}
+                        <Nav.Link href="#add">增加</Nav.Link>
+                        <Nav.Link onClick={e => this.onShowLabels()}>标签</Nav.Link>
+                        <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                            <NavDropdown.Item href="ac">Action</NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                    <Form inline>
+                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                        <Button varint="outline-success">Search</Button>
+                    </Form>
+                </Navbar.Collapse>
+                <Modal show={this.state.showLabels} onHide={e=>this.onLabelsClose()} animation={false}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>显示标签</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <IssuesLabels variables={this.props.state.setConfig.variables}/>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={e=>this.onLabelsClose()}>
+                            Close
+          </Button>
+                        <Button variant="primary" onClick={e=>this.onLabelsClose()}>
+                            Save Changes
+          </Button>
+                    </Modal.Footer>
+                </Modal>
+            </Navbar>
+
         );
     }
 }

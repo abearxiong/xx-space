@@ -1,6 +1,6 @@
 // 它就是将来真正要用到的数据，我们将其统一放置在reducers.js文件
 import defaultState from '../state.js'
-import * as Types from '../../actions/ReposActionsType'
+import * as Types from '../../actions/Types'
 function setIssue(state = defaultState.config,action){
     // console.log("setIssue Type:",action.type)
     switch(action.type){
@@ -32,13 +32,23 @@ function setIssues(state = defaultState.config,action){
 function setConfig (state = defaultState.config,action){
     switch(action.type){
         case Types.SET_CONFIG:
-        state.config = action.data
-        //console.log("进入",state,"data",action,action.type)
-        return state
-        case Types.SET_CLIENT:
-        state.client = action.data
-        //console.log("进入",state,"data",action,action.type)
-        return state
+            // console.log("设置配置", action.data)
+            state.config = action.data
+            state.client = action.data.client
+            state.variables = {
+                owner: action.data.owner,
+                name: action.data.name,
+                first: 10,
+                after: null
+            }
+            return Object.assign({}, state)
+        case Types.SET_PAGEINFO:
+            state.pageInfo = state.data
+            return Object.assign({}, state)
+        case Types.SET_NEXTPAGE:
+            state.variables.after = action.data
+            // console.log("设置下一页的after变量")
+            return Object.assign({}, state)
         default:
         //console.log("得到",state,"data",action,action.type)
         return state
