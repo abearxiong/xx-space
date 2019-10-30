@@ -1,5 +1,4 @@
-// import * as Types from "./ReposActionsType"
-
+import * as Types from "./Types"
 export const setIssues = (data = {}) => {
     return (dispatch)=>{
         console.log("setIssues吉祥物")
@@ -26,6 +25,7 @@ export const setIssue = (data = {}) => {
 export const setIssueEdit = ( data = {})=> {
     return (dispatch)=>{
         console.log("setIssueEdit吉祥物")
+        dispatch({type:Types.SET_ISSUE,data:{edit:"吉祥物"}})
         // client.mutate({
         //     mutation : repos.setIssueAdd(content,title)
         // }).then(res=>{

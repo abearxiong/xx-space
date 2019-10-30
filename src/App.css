@@ -35,3 +35,21 @@
 .space-item:not(:first-child){
   margin-top: 20px;
 }
+.edit-content{
+  width:100%;
+}
+
+.edit-wrapper{
+  /* margin: 20px; */
+  display: flex;
+  flex-direction: row;
+  min-height: 500px;;
+}
+.edit{
+  width: 80%;
+}
+.edit-aside{
+  width: 20%;
+  max-height: 500px;
+  overflow-y:scroll;
+}

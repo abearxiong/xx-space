@@ -23,15 +23,22 @@ class Home extends Component {
     localStorage.setItem("pageInfo",JSON.stringify(pageInfo))
     localStorage.setItem("issuesLodding",false)
     window.addEventListener('scroll',this.scrollNew)
+    // console.log(this.state.description)
     this.getNewPage();
+  }
+  componentWillUnmount (){
+    window.removeEventListener('scroll',this.scrollNew)
   }
   scrollNew = ()=>{
     let scrollHeight = document.documentElement.scrollHeight
     let scrollTop = document.documentElement.scrollTop
     let clientHeight = document.documentElement.clientHeight
     let lodding = localStorage.getItem("issuesLodding")
-    if(scrollTop + clientHeight === scrollHeight&&lodding!=="lodding"){
+    // console.log("height",scrollHeight,scrollTop,clientHeight)
+    if(scrollTop + clientHeight > scrollHeight - 2&&lodding!=="lodding"){
+      // 单纯的相等的情况会出现 浮点数的情况，就不能执行
       this.getNewPage()
+      // console.log("新一页")
       localStorage.setItem("issuesLodding","lodding")
     }
   }

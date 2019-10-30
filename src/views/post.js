@@ -8,6 +8,7 @@ import {
 import { connect } from "react-redux";
 import { setIssue } from "../actions";
 import Issues from "../components/issues/issues"
+// import {ADD_ISSUE} from "../graphql"
 class Post extends Component {
   constructor(props) {
     super(props);
