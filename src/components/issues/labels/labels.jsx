@@ -28,7 +28,8 @@ const IssuesLabels = (props) => (
       })
       return (
         <Card border="light" className="Labels-wrapper">
-            {CardLabels}
+            <div>{CardLabels}
+            </div>
         </Card>
       );
     }}
