@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 export default  gql`
-query Issues($owner:String!, $name:String!, $number: Int, $first: Int!, $after: String){
+query Issues($owner:String!, $name:String!, $number: Int!, $first: Int!, $after: String){
   repository(owner: $owner, name: $name) {
     issue(number: $number){
       id
@@ -8,38 +8,17 @@ query Issues($owner:String!, $name:String!, $number: Int, $first: Int!, $after: 
       title
       bodyHTML
       body
-      author{
-        login
-      }
       createdAt
-      labels(first:10){
+      labels(first:$first,after:$after){
         edges{
           node{
             id
             name
             color
             description
+            url
           }
         }
-      }
-      comments( first: $first, after: $after) {
-        totalCount
-        edges{
-          node{
-            bodyHTML
-            author{
-              login
-            }
-            reactions(content:HEART){
-              totalCount
-            }
-            createdAt
-          }
-          cursor
-        }
-      }
-      reactions(content:HEART){
-        totalCount
       }
     }
   }

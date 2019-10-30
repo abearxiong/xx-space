@@ -19,7 +19,7 @@ const Issues = (props) => (
       // console.log("变量",props.variables)
       // console.log("页面",props.pageInfo)
       let issueEdges = data.repository.issues.edges
-      let totalCount = data.repository.issues.totalCount
+      // let totalCount = data.repository.issues.totalCount
       let pageInfo = data.repository.issues.pageInfo
       localStorage.setItem("pageInfo",JSON.stringify(pageInfo))
       localStorage.setItem("issuesLodding",false)
@@ -43,7 +43,7 @@ const Issues = (props) => (
         })
         return (
         <Card key={item.node.id}>
-            <Card.Header onClick={e=>toGithubComment(item.node.number)}>{item.node.title}<Badge variant="light" onClick={e=>toEditIssues(e, item.node.number)}>编辑</Badge></Card.Header>
+            <Card.Header onClick={e=>toGithubComment(item.node.number)}>{item.node.title}<Badge variant="light" onClick={e=>toEditIssues(e, item.node.number)} title={item.node.id}>编辑</Badge></Card.Header>
             <Card.Title>{date.toLocaleString()}</Card.Title>
             <Card.Body>
                 { cardLabels }
@@ -71,7 +71,6 @@ const Issues = (props) => (
                 </g-emoji>
                 {item.node.comments.totalCount}
               </Badge>
-               { totalCount }
             </Card.Footer>
         </Card>
         )}

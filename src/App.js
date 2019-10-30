@@ -21,11 +21,13 @@ const key = "xx-space"
 const token = 'U2FsdGVkX19B3HPXWKdG/BW8oy5ld+5t4WogKry+ve6B0RWRGtSjQlGr32zwr4nn7zBE9woFkj4mWNj8jZv1dg==' // 私有限制权限的token
 const owner = 'abearxiong'  // 仓库拥有者
 const name = 'abearxiong.github.io' // 仓库名字
+const repositoryId = "MDEwOlJlcG9zaXRvcnkxMjM4ODY3NzE="
 const config = {
   key,
   token,
   owner,
   name,
+  repositoryId
 }
 var decrypted = CryptoJS.AES.decrypt(config.token,config.key);
 let setToken = decrypted.toString(CryptoJS.enc.Utf8);//转化为utf8

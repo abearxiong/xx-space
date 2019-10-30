@@ -19,7 +19,7 @@ const IssuesLabels = (props) => (
       console.log("变量",props.variables)
       // console.log("页面",props.pageInfo)
       let labelsEdges = data.repository.labels.edges
-      let totalCount = data.repository.labels.totalCount
+    //   let totalCount = data.repository.labels.totalCount
       let pageInfo = data.repository.labels.pageInfo
       localStorage.setItem("pageInfo",JSON.stringify(pageInfo))
     //   localStorage.setItem("labelsLodding",false)

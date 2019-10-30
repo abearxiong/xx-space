@@ -1,23 +1,21 @@
 // 它就是将来真正要用到的数据，我们将其统一放置在reducers.js文件
 import defaultState from '../state.js'
 import * as Types from '../../actions/Types'
-function setIssue(state = defaultState.config,action){
+function setIssue(state = {},action){
     // console.log("setIssue Type:",action.type)
     switch(action.type){
         case Types.SET_ISSUE:
-            state.issue = action.data
+            // state.issue = action.data
             //console.log("得到",state,"data",action,action.type)
             //return state
-            return Object.assign({},state) //直接返回state是不会自动的刷新的
-        case Types.SET_ISSUE_ADD_STATUS:
-            // 设置更新后的状态
-            // state.setIssueAddConent = action.data
-            return Object.assign({}, action.data)
+            // console.log("action.data",action.data,state,typeof state)
+            state = action.data
+            return Object.assign({}, state) //直接返回state是不会自动的刷新的
         default:
             return state
     }
 }
-function setIssues(state = defaultState.config,action){
+function setIssues(state = {},action){
     // console.log("setIssues Type:",action.type)
     switch(action.type){
         case Types.SET_ISSUES:
@@ -29,7 +27,7 @@ function setIssues(state = defaultState.config,action){
         return state
     }
 }
-function setConfig (state = defaultState.config,action){
+function setConfig (state = {},action){
     switch(action.type){
         case Types.SET_CONFIG:
             // console.log("设置配置", action.data)

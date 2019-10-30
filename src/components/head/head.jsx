@@ -22,7 +22,7 @@ class Head extends Component {
         //console.log("props",this.props,'state',this.state)
         this.props.history.push("/")
     }
-    toAddNewSpace = (e) => {
+    onToAddNewSpace = (e) => {
         //console.log("添加新的内容")
         this.props.history.push("/edit/new")
     }
@@ -44,7 +44,7 @@ class Head extends Component {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         {/* <Nav.Link href="#">Home</Nav.Link> */}
-                        <Nav.Link href="#add">增加</Nav.Link>
+                        <Nav.Link onClick={e => this.onToAddNewSpace()}>增加</Nav.Link>
                         <Nav.Link onClick={e => this.onShowLabels()}>标签</Nav.Link>
                         <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                             <NavDropdown.Item href="ac">Action</NavDropdown.Item>
