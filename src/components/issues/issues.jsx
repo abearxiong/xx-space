@@ -34,6 +34,11 @@ const Issues = (props) => (
         // TODO: 判断是否缓存有内容
         props.props.history.push("/edit/"+index)
       }
+      let toIssuePost = (e, index)=>{
+        e.stopPropagation()
+        console.log("editIssues", this)
+        props.props.history.push("/post/"+index)
+      }
       const cardIssues = issueEdges.map(item => {
         let date = new Date(item.node.createdAt);
         let cardLabels = item.node.labels.edges.map(item2=>{
@@ -45,7 +50,7 @@ const Issues = (props) => (
         <Card key={item.node.id}>
             <Card.Header onClick={e=>toGithubComment(item.node.number)}>{item.node.title}<Badge variant="light" onClick={e=>toEditIssues(e, item.node.number)} title={item.node.id}>编辑</Badge></Card.Header>
             <Card.Title>{date.toLocaleString()}</Card.Title>
-            <Card.Body>
+            <Card.Body onClick={e=>toIssuePost(e,item.node.number)}>
                 { cardLabels }
                 <Card border="light"  dangerouslySetInnerHTML={{ __html: item.node.bodyHTML }}></Card>
             </Card.Body>    

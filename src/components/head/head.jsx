@@ -46,9 +46,10 @@ class Head extends Component {
                         {/* <Nav.Link href="#">Home</Nav.Link> */}
                         <Nav.Link onClick={e => this.onToAddNewSpace()}>增加</Nav.Link>
                         <Nav.Link onClick={e => this.onShowLabels()}>标签</Nav.Link>
-                        <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                        <Nav.Link onClick={e=>this.props.history.go(-1)}>返回</Nav.Link>
+                        {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                             <NavDropdown.Item href="ac">Action</NavDropdown.Item>
-                        </NavDropdown>
+                        </NavDropdown> */}
                     </Nav>
                     <Form inline>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
@@ -65,10 +66,10 @@ class Head extends Component {
                     <Modal.Footer>
                         <Button variant="secondary" onClick={e=>this.onLabelsClose()}>
                             Close
-          </Button>
-                        <Button variant="primary" onClick={e=>this.onLabelsClose()}>
-                            Save Changes
-          </Button>
+                        </Button>
+                        {/* <Button variant="primary" onClick={e=>this.onLabelsClose()}>
+                                Save Changes
+                        </Button> */}
                     </Modal.Footer>
                 </Modal>
             </Navbar>

@@ -1,45 +1,33 @@
 import gql from "graphql-tag";
+/*
+{
+  "owner":"abearxiong",
+  "name":"abearxiong.github.io",
+  "number": 52,
+  "first": 10,
+  "after": null
+}
+*/
 export default  gql`
-query Issues($owner:String!, $name:String!, $number: Int, $first: Int!, $after: String){
+query IssueComment($owner:String!, $name:String!, $number: Int!, $first: Int!, $after: String){
   repository(owner: $owner, name: $name) {
     issue(number: $number){
       id
-      number
-      title
-      bodyHTML
-      body
-      author{
-        login
-      }
-      createdAt
-      labels(first:10){
+			comments(first:$first,after:$after){
+       	pageInfo {
+            endCursor
+            startCursor
+            hasNextPage
+            hasPreviousPage
+        }
         edges{
           node{
             id
-            name
-            color
-            description
-          }
-        }
-      }
-      comments( first: $first, after: $after) {
-        totalCount
-        edges{
-          node{
+            body
             bodyHTML
-            author{
-              login
-            }
-            reactions(content:HEART){
-              totalCount
-            }
-            createdAt
+            bodyText
           }
-          cursor
         }
-      }
-      reactions(content:HEART){
-        totalCount
       }
     }
   }
