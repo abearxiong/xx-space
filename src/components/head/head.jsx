@@ -47,9 +47,9 @@ class Head extends Component {
                         <Nav.Link onClick={e => this.onToAddNewSpace()}>增加</Nav.Link>
                         <Nav.Link onClick={e => this.onShowLabels()}>标签</Nav.Link>
                         <Nav.Link onClick={e=>this.props.history.go(-1)}>返回</Nav.Link>
-                        {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                        <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                             <NavDropdown.Item href="ac">Action</NavDropdown.Item>
-                        </NavDropdown> */}
+                        </NavDropdown>
                     </Nav>
                     <Form inline>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" />

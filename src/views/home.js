@@ -53,9 +53,9 @@ class Home extends Component {
       window.removeEventListener("scroll",this.scrollNew)
       return 
     }
-    // console.log("key:", pageInfo.endCursor)
+    let key = pageInfo.endCursor
     let newPage = (<Issues 
-      key = {pageInfo.endCursor}
+      key = {key}
       variables={variables} 
       props={{...this.props}}
       getNextPage={this.getNextPage} 
@@ -82,7 +82,7 @@ class Home extends Component {
 
 // mapStateToProps：将state映射到组件的props中
 const mapStateToProps = state => {
-  console.log("state 映射", state);
+  console.log("home-state 映射", state);
   return {
     state
   };
