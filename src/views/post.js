@@ -184,7 +184,7 @@ class Post extends Component {
 
 // mapStateToProps：将state映射到组件的props中
 const mapStateToProps = state => {
-  console.log("state 映射", state);
+  console.log("posts-state 映射", state);
   return {
     state
   };
