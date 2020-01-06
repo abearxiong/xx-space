@@ -2,19 +2,17 @@ import React, { Component } from 'react';
 import {Container,Card,Button,Form, ButtonGroup, Badge} from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { setIssueEdit } from '../actions';
-// import { Editor } from 'slate-react';
-// import { Value } from 'slate';
 import AceEditor from "react-ace";
 
-import "ace-builds/src-noconflict/mode-java";
-import "ace-builds/src-noconflict/theme-github";
-
+// import "ace-builds/src-noconflict/mode-java";
+import "ace-builds/src-noconflict/mode-markdown";
+// import "ace-builds/src-noconflict/theme-github";
+import "ace-builds/src-noconflict/theme-xcode";
+import "./edit.scss"
 import Head from '../components/head/head'
-// import Plain from 'slate-plain-serializer'
 import {ADD_ISSUE,GET_LABELS,GET_ISSUE,UPDATE_ISSUE} from "../graphql"
 
 
-// const initialValue = Value.fromJSON(initialJs`on)
 class Edit extends Component {
   constructor(props){
     super(props)
@@ -104,6 +102,7 @@ class Edit extends Component {
           title: issue.title,
           value: issue.body,//Plain.deserialize(issue.body),
         })
+        localStorage.setItem("title", issue.title)
         let le = this.state.labelEdges
         le.map(item=>{
           // console.log(item.node.name,issueLables)
@@ -126,13 +125,21 @@ class Edit extends Component {
     if (title !== this.state.title) {
       localStorage.setItem('title', title)
     }
+    this.setState({title})
+    console.log("change title",title)
   }
 
-  onValueChange = (value) =>{
-    console.log(value)
+  onAceValueChange = (value) =>{
+    console.log(value,this.state.value)
     if (value !== this.state.value) {
       localStorage.setItem('content', value)
     }
+    this.setState({
+      value: value
+    })
+  }
+  onAceLoad = () =>{
+    console.log("ace is lodding")
   }
   onClickAddNewPost = ()=>{
     const { client,config } = this.props.state.setConfig
@@ -165,8 +172,8 @@ class Edit extends Component {
   }
   onClickEditOldPost = () => {
     const { client } = this.props.state.setConfig
-    let value = this.state.value//Plain.serialize(this.state.value)
-    let title = this.state.title
+    let value = localStorage.getItem("content")
+    let title = localStorage.getItem("title")
     let state = this.state.issueState
     let labelIds= this.state.labelEdges.map(item=>{
       if(item.node.isChecked){
@@ -176,6 +183,7 @@ class Edit extends Component {
       }
     })
     labelIds = labelIds.filter(function(x){return x!==null})
+    console.log(title,"typeof title",typeof title)
     let variables = {id:this.state.issue.id,state,labelIds,body:value,title}
     console.log(value,labelIds,variables,typeof this.state.issue.id)
     // PRETODO: 获取lables和设置lables，获取仓库ID
@@ -210,17 +218,28 @@ class Edit extends Component {
     let ButtonSubmit = <Button onClick = {(e)=>this.onClickAddNewPost(e)}>增加</Button>
     let ButtonReturn = <Button variant="dark" onClick = {(e)=>this.onClickReturn(e)}>返回</Button>
     let CardTitle = <Card border="light" style={this.state.titleStyle}>{this.state.createdAt}</Card>
-    // ---编辑器---
+    // http://securingsincity.github.io/react-ace/
     let EditorContent = (
-      <AceEditor
-      mode="java"
-      theme="github"
-      onChange={this.onValueChange}
-      name="ace-edit-content"
-      value={this.state.value}
-      editorProps={{ $blockScrolling: true }}
-    />
-    )
+    <AceEditor
+        placeholder="Your Markdown"
+        mode="markdown"
+        theme="xcode"
+        name="ace-edit-content"
+        onLoad={this.onAceLoad}
+        onChange={this.onAceValueChange}
+        fontSize={14}
+        showPrintMargin={false}
+        showGutter={true}
+        highlightActiveLine={true}
+        value={this.state.value}
+        setOptions={{
+        enableBasicAutocompletion: true,
+        enableLiveAutocompletion: true,
+        enableSnippets: true,
+        showLineNumbers: true,
+        tabSize: 2,
+        }}/>
+            )
     let CheckLable = this.state.labelEdges.map((item,index)=>{
       return (<Form.Check 
             key={item.node.id}

@@ -69,9 +69,6 @@ class Post extends Component {
     }
   }
 
-  handleClick = () => {
-
-  }
   getChilder =(pageInfo) =>{
     // console.log("父层", pageInfo)
   }
