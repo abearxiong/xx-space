@@ -36,6 +36,9 @@ class Head extends Component {
             showLabels: false
         })
     }
+    onSearch = () =>{
+        alert("搜索功能未添加")
+    }
     render() {
         return (
             <Navbar className="Header" bg="light" expand="lg">
@@ -53,7 +56,7 @@ class Head extends Component {
                     </Nav>
                     <Form inline>
                         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button varint="outline-success">Search</Button>
+                        <Button varint="outline-success" onClick={e=>this.onSearch(e)}>Search</Button>
                     </Form>
                 </Navbar.Collapse>
                 <Modal show={this.state.showLabels} onHide={e=>this.onLabelsClose()} animation={false}>

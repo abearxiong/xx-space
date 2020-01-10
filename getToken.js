@@ -24,7 +24,7 @@ if(argv[2]==='get'){
     let key = argv[4]?argv[4]:"xx-space"
     console.log("私人key", personkey)
     console.log("加密key", key)
-    var decrypted = CryptoJS.AES.decrypt(personkey, key);
+    let decrypted = CryptoJS.AES.decrypt(personkey, key);
     let originToken = decrypted.toString(CryptoJS.enc.Utf8);//转化为utf8
     console.log("原始key", originToken)
 }
