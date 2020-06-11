@@ -11,7 +11,7 @@ import "ace-builds/src-noconflict/theme-xcode";
 import "./edit.scss"
 import Head from '../components/head/head'
 import {ADD_ISSUE,GET_LABELS,GET_ISSUE,UPDATE_ISSUE} from "../graphql"
-
+import BigNumber from 'bignumber.js'
 
 class Edit extends Component {
   constructor(props){
@@ -62,11 +62,19 @@ class Edit extends Component {
       */
       let now = new Date()
       let show_day = ["星期天","星期一","星期二","星期三","星期四","星期五","星期六"]
-      let manyDay = Math.floor((now - 1443365529298)/(24 * 60 * 60 * 1000)) + 1// 往下 取整
+      // let manyDay = Math.floor((now - 1443365529298)/(24 * 60 * 60 * 1000)) + 1// 往下 取整
+      // let howLong =new BigNumber().toNumber() ;
+      // console.log("howlO",howLong, BigNumber);
+      // console.log(new BigNumber(123).toNumber())
+      let manyDay = new BigNumber(now-1443365529298).dividedBy(24 * 60 * 60 * 1000).toFixed(0)
+      console.log("manyDay",manyDay);
+      manyDay = Math.floor(manyDay)
       let day = now.getDay()
-      let title = `奇幻旅程${manyDay} ${show_day[day]}`
+      let title = `奇幻旅程${manyDay+1} ${show_day[day]}`
+      console.log("title", title)
       // 如果新建文章的情况下，如果本地已经有了的话，直接设置
-      title = localStorage.getItem('title')?localStorage.getItem('title'):title
+      // 设置干啥？
+      // title = localStorage.getItem('title')?localStorage.getItem('title'):title
       localStorage.setItem('title', title)
       let value = localStorage.getItem('content')?localStorage.getItem('content'):"真是开心啊"
       localStorage.setItem('content',value)
